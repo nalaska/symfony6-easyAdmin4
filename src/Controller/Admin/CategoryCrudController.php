@@ -22,7 +22,9 @@ class CategoryCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        //configuration des champs de l'entité
         return [
+            //on cache le champs id et les dates
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
             BooleanField::new('active'),
@@ -48,9 +50,11 @@ class CategoryCrudController extends AbstractCrudController
             return;
         }
 
+        //pour chaque produits liés à une catégorie supprimé on supprime les produits
         foreach ($entityInstance->getProducts() as $product){
             $em->remove($product);
         }
+
         parent::deleteEntity($em, $entityInstance);
     }
 }

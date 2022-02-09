@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
-use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -55,6 +54,7 @@ class ProductCrudController extends AbstractCrudController
                 ->setBasePath(self::PRODUCTS_BASE_PATH)
                 ->setUploadDir(self::PRODUCTS_UPLOAD_DIR)
                 ->setSortable(false),
+            //requête en fonction callback pour trier uniquement catégories actives
             AssociationField::new('category')->setQueryBuilder(static function (QueryBuilder $builder) {
                 $builder->where('entity.active = true');
             }),
@@ -62,6 +62,8 @@ class ProductCrudController extends AbstractCrudController
             DateTimeField::new('createdAt')->hideOnForm(),
         ];
     }
+
+    //autre manière de faire sans subscriber
 
    /* public function persistEntity( EntityManagerInterface $em, $entityInstance) : void
     {
@@ -95,7 +97,7 @@ class ProductCrudController extends AbstractCrudController
         $product = $adminContext->getEntity()->getInstance();
 
         $duplicate = clone $product;
-        parent::persistEntity($em, $duplicate);
+        $this->persistEntity($em, $duplicate);
 
         $url = $urlGenerator->setController(self::class)
             ->setAction(Action::DETAIL)

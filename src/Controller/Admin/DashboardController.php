@@ -20,6 +20,7 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
+        //générateur d'url pour le composant easyAdmin qui permet de rediriger vers le controller crud fait avec la commande symfony console make:admin:crud
         $url = $this->adminUrlGenerator
             ->setController(ProductCrudController::class)
             ->generateUrl();
@@ -29,24 +30,24 @@ class DashboardController extends AbstractDashboardController
 
     public function configureDashboard(): Dashboard
     {
-        return Dashboard::new()
-            ->setTitle('Website');
+        return Dashboard::new()->setTitle('admin');
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::section('E-commerce');
-        yield MenuItem::section('Product');
+        yield MenuItem::section('Produit');
 
         yield MenuItem::subMenu('Action', 'fas fa-bars')->setSubItems([
-            MenuItem::linkToCrud('Add product', 'fas fa-plus', Product::class)->setAction(Crud::PAGE_NEW),
-            MenuItem::linkToCrud('Show product', 'fas fa-eye', Product::class)
+            //on renvoie vers la page d'ajout du crud qui est en rapport avec l'entité Product
+            MenuItem::linkToCrud('Ajouter un produit', 'fas fa-plus', Product::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Voir les produits', 'fas fa-eye', Product::class)
         ]);
 
-        yield MenuItem::section('Categories');
+        yield MenuItem::section('Catégorie');
         yield MenuItem::subMenu('Action', 'fas fa-bars')->setSubItems([
-            MenuItem::linkToCrud('Add category', 'fas fa-plus', Category::class)->setAction(Crud::PAGE_NEW),
-            MenuItem::linkToCrud('Show category', 'fas fa-eye', Category::class)
+            //on renvoie vers la page d'ajout du crud qui est en rapport avec l'entité Category
+            MenuItem::linkToCrud('Ajouter une catégorie', 'fas fa-plus', Category::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Voir les catégories', 'fas fa-eye', Category::class)
         ]);
     }
 }

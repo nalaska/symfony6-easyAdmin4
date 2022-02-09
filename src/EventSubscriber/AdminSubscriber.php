@@ -2,8 +2,7 @@
 
 namespace App\EventSubscriber;
 
-use App\Entity\Category;
-use App\Entity\Product;
+use App\Entity\Entity;
 use DateTimeImmutable;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
@@ -11,7 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class AdminSubscriber implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             BeforeEntityPersistedEvent::class => ["setCreatedAt"],
@@ -23,7 +22,7 @@ class AdminSubscriber implements EventSubscriberInterface
     {
         $entity = $event->getEntityInstance();
 
-        if (!$entity instanceof Product && !$entity instanceof Category){
+        if (!$entity instanceof Entity){
             return;
         }
 
@@ -34,7 +33,7 @@ class AdminSubscriber implements EventSubscriberInterface
     {
         $entity = $event->getEntityInstance();
 
-        if (!$entity instanceof Product && !$entity instanceof Category){
+        if (!$entity instanceof Entity){
             return;
         }
 
