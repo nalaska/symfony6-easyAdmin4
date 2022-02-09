@@ -44,23 +44,29 @@ class ProductCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('name'),
+            TextField::new('name', 'nom'),
             TextEditorField::new('description'),
-            MoneyField::new('price')->setCurrency('EUR'),
+            MoneyField::new('price','prix')->setCurrency('EUR'),
             BooleanField::new('active'),
             ImageField::new('image')
                 ->setBasePath(self::PRODUCTS_BASE_PATH)
                 ->setUploadDir(self::PRODUCTS_UPLOAD_DIR)
                 ->setSortable(false),
             //requête en fonction callback pour trier uniquement catégories actives
-            AssociationField::new('category')->setQueryBuilder(static function (QueryBuilder $builder) {
+            AssociationField::new('category', 'catégorie')->setQueryBuilder(static function (QueryBuilder $builder) {
                 $builder->where('entity.active = true');
             }),
             DateTimeField::new('updatedAt')->hideOnForm(),
             DateTimeField::new('createdAt')->hideOnForm(),
         ];
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud->setPageTitle('new', fn () => 'Nouveau produit');
     }
 
     //autre manière de faire sans subscriber

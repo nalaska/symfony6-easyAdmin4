@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -11,28 +12,28 @@ class Product implements Entity
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private string $name;
 
     #[ORM\Column(type: 'text')]
-    private $description;
+    private string $description;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private $price;
+    private float $price;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $image;
+    private ?string $image;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    private $updatedAt;
+    private ?DateTimeImmutable $updatedAt;
 
     #[ORM\Column(type: 'boolean')]
-    private $active;
+    private bool $active;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    private $createdAt;
+    private DateTimeImmutable $createdAt;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]

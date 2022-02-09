@@ -26,7 +26,7 @@ class CategoryCrudController extends AbstractCrudController
         return [
             //on cache le champs id et les dates
             IdField::new('id')->hideOnForm(),
-            TextField::new('name'),
+            TextField::new('name', 'nom'),
             BooleanField::new('active'),
             DateTimeField::new('updatedAt')->hideOnForm(),
             DateTimeField::new('createdAt')->hideOnForm(),
