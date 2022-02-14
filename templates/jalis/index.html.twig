@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+    <div id="sail" class="position-fixed top-0 start-0 bottom-0 end-0 bg-white d-flex justify-content-center align-items-center visually-hidden" style="z-index: 100; opacity: 0.6">
+        <div class="spinner-border text-primary" role="status"></div>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-center" style="height: 100vh">
+        <div class="d-flex flex-wrap" style="width:400px">
+            <div class="w-100 d-flex justify-content-center" id="google_signin_button_div">
+                <div id="google_signin_button" class="g-signin2" data-onsuccess="onGoogleSignIn" data-theme="light" data-width="200"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="signinErrorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-white text-danger">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="staticBackdropLabel">Erreur</h5>
+                    <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Une erreur a été rencontrée lors de la connexion
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script defer src="{{ asset('js/auth/signin.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        #google_signin_button > div {
+            border-radius: 999px !important;
+        }
+    </style>
+{% endblock %}

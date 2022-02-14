@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IndexController!{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        {% for product in products %}
+            {% if product.active %}
+                <div>
+                    <h1>
+                        <a href="{{ product.id }}">Nom: {{ product.name }}</a>
+                    </h1>
+                    <span>Description: {{ product.description | raw }}</span>
+                    <span>Prix: {{ product.price }} €</span>
+                     <img
+                         src="upload/images/products/{{ product.image }}"
+                         alt="product"
+                         style="width: 100px; height: 80px; display: block"
+                     >
+
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

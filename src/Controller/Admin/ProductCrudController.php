@@ -66,7 +66,7 @@ class ProductCrudController extends AbstractCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
-        return $crud->setPageTitle('new', fn () => 'Nouveau produit');
+        return $crud->setPageTitle('new', 'Nouveau produit');
     }
 
     //autre manière de faire sans subscriber
